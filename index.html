@@ -1,0 +1,288 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="description" content="Free Web tutorials for HTML and CSS">
+		<meta name="keywords" content="HTML, CSS, JavaScript">
+		<meta name="author" content="John Doe">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- <meta http-equiv="refresh" content="30"> --> 
+		<title>Volume Slider & Controler</title>
+		<link rel="icon" href="" type="image/x-icon">
+		<!-- <link rel="stylesheet" type="text/css" href="style.css"> -->	<!-- Externak CSS Link -->
+		<!-- <script type="text/javascript" src="main.js"></script> -->	<!-- External JavaSceipt Link -->
+
+		 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">	<!-- Awesome Font Link -->
+
+		<!-- --------------------------------------------------Internal CSS Start-------------------------------------------------- -->
+		<style type="text/css">
+			
+			/* .........................Important & Mandatory Properties........... */
+				*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; } /* Universal Selector (All Elements Selected) */
+				html { font-size: 62.5%; } /*  62.5% = 10px = 1rem But By Default 100% = 16px = 1rem */
+				body { font-family: sans-serif; }
+				/* Selection Used By User To Select Content */
+				::selection {
+				background: yellow;
+				color: black;
+				outline: white;
+				cursor: pointer;
+			}
+
+			/* .........................Variable Creation Start.................... */
+				:root {
+					--width: 100vw;  	/* width: var(--width); | width: calc(var(--width) - 80vw); */
+					--height: 100vh;	/* height: var(--height); | height: calc(var(--height) - 80vh); */
+					--primary-color: #003CFF;	/* var(--primary-color); */
+					--secondary-color: #04A200;
+				}
+			/* .........................Variable Creation End...................... */
+
+
+			.audio_container {
+				display: grid;
+				place-items: center;
+				margin-top: 10rem;
+			}
+
+
+			.VolumeContainer {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+
+			.VolumeContainer i {
+				/* border: 1px solid black; */
+				width: 3rem;
+				/* height: 3rem; */
+				margin-right: 1rem;
+				font-size: 3rem;
+				cursor: pointer;
+
+				/* display: grid; */
+				/* place-items: center; */
+				/* background: grey; */
+				/* background-position: center;
+				background-repeat: no-repeat; */
+			}
+
+			#volume_value {
+				width: 3rem;
+				font-size: 2.4rem;
+				margin-left: 1rem;
+			}
+
+		/* 	.volume-up {
+				background-image: url('');
+				background: green;
+				width: 3rem;
+				height: 3rem;
+			}
+
+			.volume-down {
+				background-image: url('');
+				background: orange;
+				width: 3rem;
+				height: 3rem;
+			}
+
+			.volume-mute {
+				background-image: url('');
+				background: red;
+				width: 3rem;
+				height: 3rem;
+			} */
+
+
+			#prgvol
+			{
+				width: 50%;
+				height:5px;
+				border-radius:2.5px;
+				/* background-color:white; */
+				background-color: lightblue;
+				/* appearance: none; */
+				/* -webkit-appearance:none; */
+				/* -moz-appearance:none; */
+				outline:none;
+			}
+			#prgvol::-webkit-slider-thumb {
+				/* -webkit-appearance: none; */
+				/* -moz-appearance:none; */
+				/* appearance: none; */
+				width: 15px;
+				height: 15px;
+				background: rgba(255,255,255,0.8); 
+				border:1px solid black;
+				cursor: pointer;
+				border-radius:50%;
+				outline:none;
+			}
+
+			#prgvol::-moz-range-thumb {
+				width: 15px; 
+				height: 15px;
+				background: rgba(255,255,255,0.8);
+				border:1px solid black;
+				cursor: pointer;
+				outline:none;
+				border-radius:50%;
+			}
+
+
+
+
+
+
+			/* ..........................Media Query Start......................... */
+				
+				/* 4K - 2560px */
+				@media (max-width: 2560px) {
+					html {
+						font-size: 62.5%;
+					}
+				}
+
+				/* Laptop L - 1440px */
+				@media (max-width: 1440px) {
+					html {
+						font-size: 62.5%;
+					}
+				}
+
+				/* Laptop 1024px */
+				@media (max-width: 1024px) {
+					html {
+						font-size: 62.5%;
+					}	
+				}
+
+				/* Mini Laptop | Tablet 998px */
+				@media (max-width: 998px) {
+					html {
+						font-size: 55%;  /* 55% = 8.8px */
+					}	
+				}
+
+				/* Tablet - 768px */
+				@media (max-width: 768px) {
+					html {
+						font-size: 45%;  /* 45% = 7.2px */
+					}	
+				}
+
+				/* Mobile L - 425px */
+				@media (max-width: 425px) {
+					html {
+						font-size: 31.25%;
+					}	
+				}
+
+				/* Mobile M - 375px */
+				@media (max-width: 375px) {
+					html {
+						font-size: 31.25%;
+					}
+				}
+
+				/* Mobile S - 320px */
+				@media (max-width: 320px) {
+					html {
+						font-size: 31.25%;
+					}
+				}
+
+			/* ..........................Media Query End........................... */
+			
+		</style>
+		<!-- --------------------------------------------------Internal CSS End---------------------------------------------------- -->
+	</head>
+
+	<body>
+
+		<div class="audio_container">
+			<audio controls autoplay loop id="aud">
+				<source src="Mungda.mp3" type="audio/mpeg">
+			</audio>
+		</div>
+
+		<div class="VolumeContainer">
+			<i class="fa volume_icons volume-up" onclick="muteUnmute()" id="volbtn"> &#xf028; </i>
+			<input id="prgvol" type="range" min="0" max="100" value="100" oninput="volume(this.value)"/>
+			<div id="volume_value">100</div>
+
+		</div>
+
+
+
+
+		
+		<!-- --------------------------------------------------Internal JavaScript Start------------------------------------------- -->
+		<script type="text/javascript">	//Internal JavaScript
+			
+
+			var volbtn = document.getElementById("volbtn");
+
+			var audio = document.getElementById("aud");
+
+			var valume_value = document.getElementById("volume_value");
+
+			// Volume Controler ...................................
+
+			function volume(val) {
+				var av = audio.volume = val / 100;
+				// console.log(av);
+
+				valume_value.innerHTML = val;
+
+
+				if(av == 0.0) {
+					// console.log(av);
+					// console.log("Silent");
+					// volbtn.classList.toggle("volume-mute");
+					volbtn.innerHTML = "&#xf026;";
+				}
+				else if(av <= 0.5){
+					// console.log("Medium");
+					// volbtn.classList.toggle("volume-down");
+					volbtn.innerHTML = "&#xf027;";
+				}
+				else{
+					// 1.0
+					// console.log("High");
+					// volbtn.classList.toggle("volume-up");
+					volbtn.innerHTML = "&#xf028;";
+				}
+			}
+
+			// Mute & Unmute ......................................
+
+			function muteUnmute() {
+
+				// volbtn.classList.toggle("volume-mute");
+
+				if(audio.muted == false) {
+					// console.log("Mute");
+					audio.muted = true;
+					volbtn.innerHTML = "&#xf026;";
+				}
+				else {
+					// console.log("Unmute");
+					audio.muted = false;
+					volbtn.innerHTML = "&#xf028;";
+				}
+				
+			}
+
+
+
+			
+
+
+		</script>
+		<!-- --------------------------------------------------Internal JavaScript End--------------------------------------------- -->
+	</body>
+</html>
